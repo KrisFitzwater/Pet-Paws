@@ -312,7 +312,7 @@ button:focus-visible,input:focus-visible{outline:4px solid var(--berry);outline-
   .confetti{display:none}
 }
 </style>
-<link rel="stylesheet" href="kitchen.css">
+<link rel="stylesheet" href="kitchen.css?v=4">
 </head>
 <body>
 
@@ -743,15 +743,17 @@ function show(name){
   stopWalk(); stopPlay(); clearTimeout(teach.timer); clearTimeout(feed.timer);
   LEAVE.forEach(fn => fn(name));
   SCREENS.forEach(s => $('#scr-' + s).hidden = (s !== name));
-  mode = name === 'start' ? null : (MODE_OF[name] || 'pets');
+  mode = name === 'start' ? null : (MODE_OF[name] || (name === 'kitchen' || name === 'cook' ? 'kitchen' : 'pets'));
   $('#modeNav').hidden = !mode;
   document.querySelectorAll('#modeNav [data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
-  $('#homeBtn').hidden = !mode || name === ROOT[mode]();
+  $('#homeBtn').hidden = !mode || name === rootOf(mode);
   ENTER[name]();
   window.scrollTo({top:0});
 }
-function goMode(m){ sfx.pop(); show(ROOT[m] ? ROOT[m]() : 'start'); }
-$('#homeBtn').onclick = () => { sfx.pop(); show(mode && ROOT[mode] ? ROOT[mode]() : 'start'); };
+// Each game's main screen; falls back to a screen with the game's own name (e.g. an older kitchen.js).
+const rootOf = m => ROOT[m] ? ROOT[m]() : (ENTER[m] ? m : 'start');
+function goMode(m){ sfx.pop(); show(rootOf(m)); }
+$('#homeBtn').onclick = () => { sfx.pop(); show(mode ? rootOf(mode) : 'start'); };
 document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => goMode(b.dataset.mode));
 function enterStart(){
   const p = state.pet || {type:'dog', color:'honey'};
@@ -1277,7 +1279,7 @@ $('#starCount').textContent = state.stars;
 renderSound();
 show('start');
 </script>
-<script src="kitchen.js"></script>
+<script src="kitchen.js?v=4"></script>
 
 </body>
 </html>

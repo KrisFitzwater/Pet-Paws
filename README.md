@@ -7,3 +7,5 @@ Games for children aged 5 to 8. The front page offers two games, and a switcher 
 There is no build step. Progress is saved in each device's browser.
 
 Play it on a phone: open the GitHub Pages address, then use **Add to Home Screen**.
+
+When you change `kitchen.js` or `kitchen.css`, bump the `?v=` number where `index.html` loads them, so phones don't mix a new page with an old cached file.
