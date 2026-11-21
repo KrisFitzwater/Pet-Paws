@@ -1,8 +1,4 @@
 /* Paw Pals: World Kitchen add-on. Uses the colour tokens from index.html. */
-.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:14px;min-height:0;background:#FFD6E8}
-.tile.wide svg{width:64px;height:64px;margin:0;flex:none}
-.tile.wide div{display:flex;flex-direction:column;gap:2px;min-width:0}
-
 .k-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .k-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
 .k-card{border:3px solid var(--ink);border-radius:22px;background:var(--card);box-shadow:0 5px 0 var(--ink);padding:10px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;touch-action:manipulation;transition:transform .08s,box-shadow .08s}

@@ -305,10 +305,14 @@ document.querySelector('.app').insertAdjacentHTML('beforeend', `
     <div class="k-tray" id="kTray"></div>
   </section>`);
 SCREENS.push('kitchen', 'cook');
+MODE_OF.kitchen = MODE_OF.cook = 'kitchen';
+ROOT.kitchen = () => 'kitchen';
 ENTER.kitchen = enterKitchen;
 ENTER.cook = enterCook;
 LEAVE.push(name => { if (name !== 'cook') stopCook(); });
 
+// Without a pet yet, a stand-in chef cooks along.
+const chef = () => state.pet || {type:'cat', color:'ginger', name:'Chef Pip'};
 const cookedLog = () => (state.cooked = state.cooked || {});
 let run = null, rq = 0;
 const cur = () => run && run.r.steps[run.i];
@@ -338,7 +342,7 @@ function newDish(){ return {base:null, roll:0, sauce:0, rice:0, items:[], blob:n
 function enterCook(){
   if (!run) return show('kitchen');
   $('#kTitle').textContent = run.free ? 'Make your own dish' : `${run.r.dish} from ${run.r.country}`;
-  $('#kPet').innerHTML = petSVG(state.pet, {acc:Object.assign({}, state.acc, {hat:false, chef:true})});
+  $('#kPet').innerHTML = petSVG(chef(), {acc:Object.assign({}, state.acc, {hat:false, chef:true})});
   $('#kStage').classList.remove('serving');
   startStep();
 }
@@ -707,11 +711,11 @@ function serveStep(){
   $('#kCueIcon').innerHTML = STAR_SVG;
   renderSteps(true); renderScene(); renderTray();
   sfx.chime(); confetti(stg);
-  say(run.free ? `You made ${run.name}!` : `${ready} Show ${run.r.plural ? 'them' : 'it'} to ${petName()}.`);
+  say(run.free ? `You made ${run.name}!` : `${ready} Show ${run.r.plural ? 'them' : 'it'} to ${chef().name}.`);
 }
 function renderServeTray(){
   const t = $('#kTray');
-  if (!run.served) { t.innerHTML = `<button class="btn go k-big" id="kServe">${HEART_SVG}Show it to ${petName()}</button>`; return; }
+  if (!run.served) { t.innerHTML = `<button class="btn go k-big" id="kServe">${HEART_SVG}Show it to ${chef().name}</button>`; return; }
   const unsafe = [...run.used].filter(id => UNSAFE_FOR_PETS.includes(id));
   t.innerHTML = (unsafe.length ? `<p class="k-tip">Did you know? ${listOf(unsafe).replace(/^./, c => c.toUpperCase())} ${unsafe.length > 1 ? 'are' : 'is'} not safe for pets to eat, so this dish is just for people.</p>` : '')
     + `<div class="k-row"><button class="btn go" id="kAgain">Cook it again</button><button class="btn" id="kMore">More recipes</button></div>`;
