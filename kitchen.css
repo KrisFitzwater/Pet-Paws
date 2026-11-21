@@ -1,0 +1,80 @@
+/* Paw Pals: World Kitchen add-on. Uses the colour tokens from index.html. */
+.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:14px;min-height:0;background:#FFD6E8}
+.tile.wide svg{width:64px;height:64px;margin:0;flex:none}
+.tile.wide div{display:flex;flex-direction:column;gap:2px;min-width:0}
+
+.k-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.k-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.k-card{border:3px solid var(--ink);border-radius:22px;background:var(--card);box-shadow:0 5px 0 var(--ink);padding:10px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;touch-action:manipulation;transition:transform .08s,box-shadow .08s}
+.k-card:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.k-card svg{width:100%;max-width:150px;height:auto;aspect-ratio:120/100}
+.k-card b{font-family:var(--display);font-weight:700;font-size:1.3rem}
+.k-card span{font-size:.95rem;color:var(--muted)}
+.k-card em{font-style:normal;font-size:.85rem;margin-top:6px;padding:2px 10px;border-radius:999px;border:2px solid var(--ink)}
+.k-card em.new{background:var(--sun)}
+.k-card em.done{background:#C9EFB0}
+.k-card.k-free{background:#FFE8A3}
+
+.k-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.k-top h2{font-size:1.35rem;flex:1 1 200px}
+.k-stage{
+  width:100%;max-width:560px;align-self:center;aspect-ratio:4/3;height:auto;
+  background:
+    linear-gradient(to bottom,transparent 0 69.2%,var(--ink) 69.2% 70%,#D59B62 70% 100%),
+    repeating-linear-gradient(0deg,var(--card) 0 3px,transparent 3px 40px),
+    repeating-linear-gradient(90deg,var(--card) 0 3px,transparent 3px 40px),
+    #FFE1C4;
+}
+#kScene,#kScene svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.k-stage .k-pet{left:auto;right:1%;bottom:1%;width:24%;transform:none;z-index:4;pointer-events:none}
+.k-stage.serving .k-pet{right:3%;width:30%}
+.k-stage .bubble{top:10px}
+.k-tool{position:absolute;left:0;top:0;width:76px;height:76px;pointer-events:none;z-index:7;opacity:0;transition:opacity .15s}
+.k-stage.show-tool .k-tool{opacity:1}
+.k-tool.chop{animation:kchop .18s ease}
+@keyframes kchop{50%{translate:0 16px}}
+.k-tool.stir{animation:kstir .5s ease}
+@keyframes kstir{25%{translate:14px 6px}50%{translate:0 12px}75%{translate:-14px 6px}}
+
+.k-cue-text{display:flex;flex-direction:column;gap:8px;min-width:0;flex:1}
+.cue .k-cue-text p{font-size:1.3rem}
+.k-prog{height:16px;border:3px solid var(--ink);border-radius:999px;background:var(--sky-light);overflow:hidden}
+.k-prog i{display:block;height:100%;width:0;background:var(--grass);transition:width .12s}
+.k-tray{display:flex;flex-direction:column;gap:12px}
+.k-tray .foods{grid-template-columns:repeat(auto-fill,minmax(86px,1fr))}
+.k-tray .food.used{opacity:.35}
+.k-tray .food[aria-pressed="true"]{background:var(--sun)}
+.k-free-ings{max-height:340px;overflow-y:auto;padding:4px 4px 10px;border:3px dashed var(--ink);border-radius:20px;background:var(--sky-light)}
+.k-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.k-tools .btn{flex-direction:column;gap:2px;padding:8px 4px;font-size:1rem}
+.k-tools .btn svg{width:34px;height:34px}
+.k-tools .btn.go{background:var(--grass)}
+.k-big{font-size:1.4rem;min-height:68px;align-self:stretch}
+.k-big svg{width:34px;height:34px}
+.k-row{display:flex;gap:10px;flex-wrap:wrap}
+.k-row .btn{flex:1 1 160px}
+.k-hint{margin:0;color:var(--muted);font-size:1.05rem}
+.k-tip{margin:0;padding:10px 14px;border:3px solid var(--ink);border-radius:16px;background:#FFF1BF;font-size:1rem}
+
+/* animated bits inside the stage drawing */
+.k-steam circle{transform-box:fill-box;transform-origin:50% 50%;animation:ksteam 2.2s ease-in infinite}
+@keyframes ksteam{0%{transform:translateY(0) scale(.5);opacity:0}30%{opacity:.85}100%{transform:translateY(-70px) scale(1.5);opacity:0}}
+.k-flame{transform-box:fill-box;transform-origin:50% 100%;animation:kflame .3s ease-in-out infinite alternate}
+@keyframes kflame{to{transform:scaleY(1.3)}}
+.k-bubbles circle{transform-box:fill-box;transform-origin:50% 50%;animation:kbub 1s ease-in-out infinite}
+@keyframes kbub{0%,100%{transform:scale(.3)}50%{transform:scale(1)}}
+.k-flip{transform-box:fill-box;transform-origin:50% 50%;animation:kflip .6s ease}
+@keyframes kflip{50%{transform:translateY(-70px) scaleY(-.3)}}
+.k-glow{animation:kglow 1s ease-in-out infinite alternate}
+@keyframes kglow{to{opacity:.55}}
+
+@media (max-width:520px){
+  .k-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .k-card b{font-size:1.1rem}
+  .k-tools .btn{font-size:.9rem}
+  .cue .k-cue-text p{font-size:1.15rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .k-steam circle,.k-flame,.k-bubbles circle,.k-glow{animation:none}
+  .k-steam circle{opacity:.5}
+}
