@@ -1,7 +1,7 @@
 {
   "name": "Pet Paws",
   "short_name": "Pet Paws",
-  "description": "Games for ages 5 to 8: look after your own pet, or cook food from around the world.",
+  "description": "Games for ages 5 to 8: look after your own pet, cook food from around the world, or bake cookies for hungry monsters.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

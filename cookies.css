@@ -1,0 +1,54 @@
+/* Pet Paws: Monster Cookies add-on. Uses the colour tokens from index.html
+   and the shared stage, cue and tray styles from kitchen.css. */
+.c-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.c-card{border:3px solid var(--ink);border-radius:22px;background:var(--card);box-shadow:0 5px 0 var(--ink);padding:10px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;touch-action:manipulation;transition:transform .08s,box-shadow .08s}
+.c-card:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.c-card svg{width:100%;max-width:150px;height:auto;aspect-ratio:120/100}
+.c-card b{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.15}
+.c-card em{font-style:normal;font-size:.85rem;margin-top:6px;padding:2px 10px;border-radius:999px;border:2px solid var(--ink);background:#FFE8A3}
+
+/* the monster line-up */
+.m-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.m-card{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:0}
+.m-btn{border:3px solid var(--ink);border-radius:20px;background:#F3ECFF;box-shadow:0 5px 0 var(--ink);padding:6px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;touch-action:manipulation;transition:transform .08s,box-shadow .08s,background .2s}
+.m-btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.m-btn svg{width:100%;max-width:110px;height:auto;aspect-ratio:1;display:block;overflow:visible}
+.m-btn b{font-family:var(--display);font-weight:700;font-size:1.1rem}
+.m-food{display:flex;gap:3px;justify-content:center}
+.m-food svg{width:20px;height:20px}
+.m-row.picking .m-btn{background:#FFF1BF;animation:mcall .9s ease-in-out infinite}
+.m-row .m-btn.drop{background:var(--sun)}
+.m-btn.full{background:#C9EFB0}
+.m-help{min-height:44px;font-size:.95rem;padding:6px 8px;gap:6px}
+.m-help svg{width:22px;height:22px}
+@keyframes mcall{50%{transform:translateY(-4px)}}
+
+.m-art{transform-origin:50% 100%}
+.m-art.chew{animation:mchew .35s ease-in-out 4}
+.m-art.hot{animation:mhot .18s linear infinite}
+.m-art.sticky{animation:msticky 1.2s ease-in-out infinite}
+.m-art.happy{animation:mhappy .9s ease}
+@keyframes mchew{50%{transform:scale(1.06,.92)}}
+@keyframes mhot{25%{transform:translateX(-3px) rotate(-2deg)}75%{transform:translateX(3px) rotate(2deg)}}
+@keyframes msticky{50%{transform:rotate(-5deg) scale(.97,1.03)}}
+@keyframes mhappy{0%,100%{transform:none}30%{transform:translateY(-14%)}60%{transform:translateY(-6%)}}
+
+.c-steam path{transform-box:fill-box;transform-origin:50% 100%;animation:csteam 1.4s ease-in-out infinite}
+@keyframes csteam{0%{transform:translateY(4px);opacity:0}40%{opacity:.9}100%{transform:translateY(-14px);opacity:0}}
+.c-ready{animation:cready 1s ease-in-out infinite alternate}
+@keyframes cready{to{opacity:.35}}
+
+.c-drag{position:fixed;z-index:60;width:70px;height:70px;pointer-events:none;transform:translate(-50%,-50%) scale(1.1);filter:drop-shadow(0 6px 4px rgba(36,50,74,.35))}
+.c-drag svg{width:100%;height:100%}
+
+/* front page card art */
+.start-card .c-start-art svg{width:100%;height:100%}
+
+@media (max-width:520px){
+  .c-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .m-btn b{font-size:.95rem}
+  .m-help{font-size:.85rem;padding:6px 4px}
+}
+@media (prefers-reduced-motion:reduce){
+  .m-art.hot,.m-art.sticky,.m-row.picking .m-btn,.c-steam path,.c-ready{animation:none}
+}
